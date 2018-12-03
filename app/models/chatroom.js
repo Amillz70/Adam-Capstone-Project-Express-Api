@@ -15,7 +15,7 @@ const messageSchema = new mongoose.Schema({
 })
 
 const chatroomSchema = new mongoose.Schema({
-  question: {
+  name: {
     type: String,
     required: true
   },
