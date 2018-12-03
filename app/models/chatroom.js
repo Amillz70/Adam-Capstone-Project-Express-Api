@@ -19,7 +19,7 @@ const chatroomSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  responses: [messageSchema],
+  message: [messageSchema],
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
@@ -29,4 +29,4 @@ const chatroomSchema = new mongoose.Schema({
   timestamps: true
 })
 
-module.exports = mongoose.model('Survey', chatroomSchema)
+module.exports = mongoose.model('Chatroom', chatroomSchema)
