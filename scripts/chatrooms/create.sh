@@ -10,9 +10,11 @@ curl "${API}${URL_PATH}" \
   --header "Authorization: Bearer ${TOKEN}" \
   --data '{
     "chatroom": {
-      "name": "'"${NAME}"'",
-      "message": "'"${MESSAGE}"'"
+     "name": "'"${NAME}"'",
+     "message": {
+          "text": "'"${TEXT}"'"
+      }
     }
-  }'
+   }'
 
 echo
