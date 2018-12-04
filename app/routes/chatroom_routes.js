@@ -4,7 +4,7 @@ const express = require('express')
 const passport = require('passport')
 
 // pull in Mongoose model for chatrooms
-const chatroom = require('../models/chatroom')
+const Chatroom = require('../models/chatroom')
 
 // we'll use this to intercept any errors that get thrown and send them
 // back to the client with the appropriate status code
@@ -31,7 +31,7 @@ const router = express.Router()
 // INDEX
 // GET /chatrooms
 router.get('/chatrooms', requireToken, (req, res) => {
-  chatroom.find()
+  Chatroom.find()
     .then(chatrooms => {
       // `chatrooms` will be an array of Mongoose documents
       // we want to convert each one to a POJO, so we use `.map` to
@@ -48,7 +48,7 @@ router.get('/chatrooms', requireToken, (req, res) => {
 // GET /chatrooms/5a7db6c74d55bc51bdf39793
 router.get('/chatrooms/:id', requireToken, (req, res) => {
   // req.params.id will be set based on the `:id` in the route
-  chatroom.findById(req.params.id)
+  Chatroom.findById(req.params.id)
     .then(handle404)
     // if `findById` is succesful, respond with 200 and "chatroom" JSON
     .then(chatroom => res.status(200).json({ chatroom: chatroom.toObject() }))
@@ -62,7 +62,7 @@ router.post('/chatrooms', requireToken, (req, res) => {
   // set owner of new chatroom to be current user
   req.body.chatroom.owner = req.user.id
 
-  chatroom.create(req.body.chatroom)
+  Chatroom.create(req.body.chatroom)
     // respond to succesful `create` with status 201 and JSON of new "chatroom"
     .then(chatroom => {
       res.status(201).json({ chatroom: chatroom.toObject() })
@@ -80,7 +80,7 @@ router.patch('/chatrooms/:id', requireToken, (req, res) => {
   // owner, prevent that by deleting that key/value pair
   delete req.body.chatroom.owner
 
-  chatroom.findById(req.params.id)
+  Chatroom.findById(req.params.id)
     .then(handle404)
     .then(chatroom => {
       // pass the `req` object and the Mongoose record to `requireOwnership`
@@ -108,7 +108,7 @@ router.patch('/chatrooms/:id', requireToken, (req, res) => {
 // DESTROY
 // DELETE /chatrooms/5a7db6c74d55bc51bdf39793
 router.delete('/chatrooms/:id', requireToken, (req, res) => {
-  chatroom.findById(req.params.id)
+  Chatroom.findById(req.params.id)
     .then(handle404)
     .then(chatroom => {
       // throw an error if current user doesn't own `chatroom`

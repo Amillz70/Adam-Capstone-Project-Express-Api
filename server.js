@@ -9,6 +9,7 @@ const exampleRoutes = require('./app/routes/example_routes')
 const userRoutes = require('./app/routes/user_routes')
 const chatroomRoutes = require('./app/routes/chatroom_routes')
 const indexRoutes = require('./app/routes/index')
+const listRoutes = require('./app/routes/list_routes')
 
 // require database configuration logic
 // `db` will be the actual Mongo URI as a string
@@ -75,6 +76,7 @@ app.use(exampleRoutes)
 app.use(userRoutes)
 app.use(chatroomRoutes)
 app.use(indexRoutes)
+app.use(listRoutes)
 
 const server = require('http').createServer(app)
 const io = require('socket.io')(server, {origins: 'domain.com:* localhost:7165:* localhost:7165:*'})
@@ -83,9 +85,9 @@ io.on('connection', (client) => {
   // here you can start emitting events to the client
   console.log('connected')
 
-  client.on('event', (client) => {
+  client.on('USER_CONNECTED', (client) => {
     // here you can start emitting events to the client
-    console.log('evented something')
+    console.log('connected something')
   })
 })
 
