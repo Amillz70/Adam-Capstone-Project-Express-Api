@@ -76,10 +76,24 @@ app.use(userRoutes)
 app.use(chatroomRoutes)
 app.use(indexRoutes)
 
-// run API on designated port (4741 in this case)
-app.listen(port, () => {
-  console.log('listening on port ' + port)
+const server = require('http').createServer(app)
+const io = require('socket.io')(server, {origins: 'domain.com:* localhost:7165:* localhost:7165:*'})
+
+io.origins(['localhost:3000'])
+
+io.on('connection', (client) => {
+  // here you can start emitting events to the client
+  console.log('connected')
+
+  client.on('event', (client) => {
+    // here you can start emitting events to the client
+    console.log('evented something')
+  })
 })
 
+// run API on designated port (4741 in this case)
+server.listen(port, () => {
+  console.log('listening on port ' + port)
+})
 // needed for testing
 module.exports = app
