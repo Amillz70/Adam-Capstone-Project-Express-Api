@@ -79,8 +79,6 @@ app.use(indexRoutes)
 const server = require('http').createServer(app)
 const io = require('socket.io')(server, {origins: 'domain.com:* localhost:7165:* localhost:7165:*'})
 
-io.origins(['localhost:3000'])
-
 io.on('connection', (client) => {
   // here you can start emitting events to the client
   console.log('connected')
