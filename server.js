@@ -7,9 +7,9 @@ const cors = require('cors')
 // require route files
 const exampleRoutes = require('./app/routes/example_routes')
 const userRoutes = require('./app/routes/user_routes')
-const chatroomRoutes = require('./app/routes/chatroom_routes')
+const chatroomV2Routes = require('./app/routes/chatroom_V2_routes')
 const indexRoutes = require('./app/routes/index')
-const listRoutes = require('./app/routes/list_routes')
+const chatroomV1Routes = require('./app/routes/chatroom_V1_routes')
 
 // require database configuration logic
 // `db` will be the actual Mongo URI as a string
@@ -74,9 +74,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // register route files
 app.use(exampleRoutes)
 app.use(userRoutes)
-app.use(chatroomRoutes)
+app.use(chatroomV2Routes)
 app.use(indexRoutes)
-app.use(listRoutes)
+app.use(chatroomV1Routes)
 
 const server = require('http').createServer(app)
 const io = require('socket.io')(server, {origins: 'domain.com:* localhost:7165:* localhost:7165:*'})

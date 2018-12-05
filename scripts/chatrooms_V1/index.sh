@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 
 API="http://localhost:4741"
-URL_PATH="/lists"
+URL_PATH="/chatrooms"
 
-curl "${API}${URL_PATH}/${ID}" \
+curl "${API}${URL_PATH}" \
   --include \
-  --request DELETE \
+  --request GET \
   --header "Authorization: Bearer ${TOKEN}"
 
 echo

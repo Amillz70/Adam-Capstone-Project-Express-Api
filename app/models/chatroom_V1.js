@@ -1,12 +1,12 @@
 const mongoose = require('mongoose')
 
-const listSchema = new mongoose.Schema({
+const chatroomSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
   },
-  todo: {
-    type: String,
+  maxNumber: {
+    type: Number,
     required: true
   },
   owner: {
@@ -18,4 +18,4 @@ const listSchema = new mongoose.Schema({
   timestamps: true
 })
 
-module.exports = mongoose.model('List', listSchema)
+module.exports = mongoose.model('List', chatroomSchema)

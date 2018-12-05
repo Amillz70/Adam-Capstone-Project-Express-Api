@@ -3,8 +3,8 @@ const express = require('express')
 // Passport docs: http://www.passportjs.org/docs/
 const passport = require('passport')
 
-// pull in Mongoose model for lists
-const List = require('../models/list')
+// pull in Mongoose model for chatrooms
+const Chatroom = require('../models/chatroom')
 
 // we'll use this to intercept any errors that get thrown and send them
 // back to the client with the appropriate status code
@@ -29,43 +29,43 @@ const requireToken = passport.authenticate('bearer', { session: false })
 const router = express.Router()
 
 // INDEX
-// GET /lists
-router.get('/lists', requireToken, (req, res) => {
-  List.find()
-    .then(lists => {
-      // `lists` will be an array of Mongoose documents
+// GET /chatrooms
+router.get('/chatrooms', requireToken, (req, res) => {
+  Chatroom.find()
+    .then(chatrooms => {
+      // `chatrooms` will be an array of Mongoose documents
       // we want to convert each one to a POJO, so we use `.map` to
       // apply `.toObject` to each one
-      return lists.map(list => list.toObject())
+      return chatrooms.map(chatroom => chatroom.toObject())
     })
-    // respond with status 200 and JSON of the lists
-    .then(lists => res.status(200).json({ lists: lists }))
+    // respond with status 200 and JSON of the chatrooms
+    .then(chatrooms => res.status(200).json({ chatrooms: chatrooms }))
     // if an error occurs, pass it to the handler
     .catch(err => handle(err, res))
 })
 
 // SHOW
-// GET /lists/5a7db6c74d55bc51bdf39793
-router.get('/lists/:id', requireToken, (req, res) => {
+// GET /chatrooms/5a7db6c74d55bc51bdf39793
+router.get('/chatrooms/:id', requireToken, (req, res) => {
   // req.params.id will be set based on the `:id` in the route
-  List.findById(req.params.id)
+  Chatroom.findById(req.params.id)
     .then(handle404)
-    // if `findById` is succesful, respond with 200 and "list" JSON
-    .then(list => res.status(200).json({ list: list.toObject() }))
+    // if `findById` is succesful, respond with 200 and "chatroom" JSON
+    .then(chatroom => res.status(200).json({ chatroom: chatroom.toObject() }))
     // if an error occurs, pass it to the handler
     .catch(err => handle(err, res))
 })
 
 // CREATE
-// POST /lists
-router.post('/lists', requireToken, (req, res) => {
-  // set owner of new list to be current user
-  req.body.list.owner = req.user.id
+// POST /chatrooms
+router.post('/chatrooms', requireToken, (req, res) => {
+  // set owner of new chatroom to be current user
+  req.body.chatroom.owner = req.user.id
 
-  List.create(req.body.list)
-    // respond to succesful `create` with status 201 and JSON of new "list"
-    .then(list => {
-      res.status(201).json({ list: list.toObject() })
+  Chatroom.create(req.body.chatroom)
+    // respond to succesful `create` with status 201 and JSON of new "chatroom"
+    .then(chatroom => {
+      res.status(201).json({ chatroom: chatroom.toObject() })
     })
     // if an error occurs, pass it off to our error handler
     // the error handler needs the error message and the `res` object so that it
@@ -74,30 +74,30 @@ router.post('/lists', requireToken, (req, res) => {
 })
 
 // UPDATE
-// PATCH /lists/5a7db6c74d55bc51bdf39793
-router.patch('/lists/:id', requireToken, (req, res) => {
+// PATCH /chatrooms/5a7db6c74d55bc51bdf39793
+router.patch('/chatrooms/:id', requireToken, (req, res) => {
   // if the client attempts to change the `owner` property by including a new
   // owner, prevent that by deleting that key/value pair
-  delete req.body.list.owner
+  delete req.body.chatroom.owner
 
-  List.findById(req.params.id)
+  Chatroom.findById(req.params.id)
     .then(handle404)
-    .then(list => {
+    .then(chatroom => {
       // pass the `req` object and the Mongoose record to `requireOwnership`
       // it will throw an error if the current user isn't the owner
-      requireOwnership(req, list)
+      requireOwnership(req, chatroom)
 
       // the client will often send empty strings for parameters that it does
       // not want to update. We delete any key/value pair where the value is
       // an empty string before updating
-      Object.keys(req.body.list).forEach(key => {
-        if (req.body.list[key] === '') {
-          delete req.body.list[key]
+      Object.keys(req.body.chatroom).forEach(key => {
+        if (req.body.chatroom[key] === '') {
+          delete req.body.chatroom[key]
         }
       })
 
       // pass the result of Mongoose's `.update` to the next `.then`
-      return list.update(req.body.list)
+      return chatroom.update(req.body.chatroom)
     })
     // if that succeeded, return 204 and no JSON
     .then(() => res.sendStatus(204))
@@ -106,15 +106,15 @@ router.patch('/lists/:id', requireToken, (req, res) => {
 })
 
 // DESTROY
-// DELETE /lists/5a7db6c74d55bc51bdf39793
-router.delete('/lists/:id', requireToken, (req, res) => {
-  List.findById(req.params.id)
+// DELETE /chatrooms/5a7db6c74d55bc51bdf39793
+router.delete('/chatrooms/:id', requireToken, (req, res) => {
+  Chatroom.findById(req.params.id)
     .then(handle404)
-    .then(list => {
-      // throw an error if current user doesn't own `list`
-      requireOwnership(req, list)
-      // delete the list ONLY IF the above didn't throw
-      list.remove()
+    .then(chatroom => {
+      // throw an error if current user doesn't own `chatroom`
+      requireOwnership(req, chatroom)
+      // delete the chatroom ONLY IF the above didn't throw
+      chatroom.remove()
     })
     // send back 204 and no content if the deletion succeeded
     .then(() => res.sendStatus(204))

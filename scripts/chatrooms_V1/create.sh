@@ -1,7 +1,7 @@
 #!/bin/bash
 
 API="http://localhost:4741"
-URL_PATH="/lists"
+URL_PATH="/chatrooms"
 
 curl "${API}${URL_PATH}" \
   --include \
@@ -9,10 +9,10 @@ curl "${API}${URL_PATH}" \
   --header "Content-Type: application/json" \
   --header "Authorization: Bearer ${TOKEN}" \
   --data '{
-      "list": {
-       "title": "'"${TITLE}"'",
-       "todo": "'"${TODO}"'"
-     }
-   }'
+    "chatroom": {
+     "title": "'"${TITLE}"'",
+     "maxNumber": "'"${MAXNUM}"'"
+   }
+ }'
 
 echo
