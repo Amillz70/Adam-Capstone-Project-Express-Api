@@ -56,7 +56,7 @@ https://imgur.com/d12uDZM (1st view)
 https://imgur.com/CKgBc67 (2nd view)
 
 App Screenshot:
-<img src="https://imgur.com/ppjP2BH">
+<img src="https://i.imgur.com/ppjP2BH.png">
 </h5>
 
 ## [License](LICENSE)
