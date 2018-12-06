@@ -61,6 +61,11 @@ app.use((req, res, next) => {
   next()
 })
 
+app.use((req, res, next) => {
+  console.log(req.body)
+  next()
+})
+
 // register passport authentication middleware
 app.use(auth)
 
@@ -75,21 +80,21 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(exampleRoutes)
 app.use(userRoutes)
 // app.use(chatroomV2Routes)
-app.use(indexRoutes)
-app.use(chatroomV1Routes)
+// app.use(indexRoutes)
+// app.use(chatroomV1Routes)
 
 const server = require('http').createServer(app)
-const io = require('socket.io')(server, {origins: 'domain.com:* localhost:7165:* localhost:7165:*'})
-
-io.on('connection', (client) => {
-  // here you can start emitting events to the client
-  console.log('connected')
-
-  client.on('USER_CONNECTED', (client) => {
-    // here you can start emitting events to the client
-    console.log('connected something')
-  })
-})
+// const io = require('socket.io')(server, {origins: 'domain.com:* localhost:7165:* localhost:7165:*'})
+//
+// io.on('connection', (client) => {
+//   // here you can start emitting events to the client
+//   console.log('connected')
+//
+//   client.on('USER_CONNECTED', (client) => {
+//     // here you can start emitting events to the client
+//     console.log('connected something')
+//   })
+// })
 
 // run API on designated port (4741 in this case)
 server.listen(port, () => {
