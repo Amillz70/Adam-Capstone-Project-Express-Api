@@ -18,4 +18,4 @@ const chatroomSchema = new mongoose.Schema({
   timestamps: true
 })
 
-module.exports = mongoose.model('List', chatroomSchema)
+module.exports = mongoose.model('Chatroom', chatroomSchema)

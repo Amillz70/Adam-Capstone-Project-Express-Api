@@ -7,7 +7,7 @@ const cors = require('cors')
 // require route files
 const exampleRoutes = require('./app/routes/example_routes')
 const userRoutes = require('./app/routes/user_routes')
-const chatroomV2Routes = require('./app/routes/chatroom_V2_routes')
+// const chatroomV2Routes = require('./app/routes/chatroom_V2_routes')
 const indexRoutes = require('./app/routes/index')
 const chatroomV1Routes = require('./app/routes/chatroom_V1_routes')
 
@@ -74,7 +74,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // register route files
 app.use(exampleRoutes)
 app.use(userRoutes)
-app.use(chatroomV2Routes)
+// app.use(chatroomV2Routes)
 app.use(indexRoutes)
 app.use(chatroomV1Routes)
 

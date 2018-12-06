@@ -25,4 +25,4 @@ const chatroomSchema = new mongoose.Schema({
   timestamps: true
 })
 
-module.exports = mongoose.model('Chatroom', chatroomSchema)
+module.exports = mongoose.model('Chatroom_v2', chatroomSchema)

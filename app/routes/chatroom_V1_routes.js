@@ -4,7 +4,7 @@ const express = require('express')
 const passport = require('passport')
 
 // pull in Mongoose model for chatrooms
-const Chatroom = require('../models/chatroom')
+const Chatroom = require('../models/chatroom_V1')
 
 // we'll use this to intercept any errors that get thrown and send them
 // back to the client with the appropriate status code
@@ -59,6 +59,7 @@ router.get('/chatrooms/:id', requireToken, (req, res) => {
 // CREATE
 // POST /chatrooms
 router.post('/chatrooms', requireToken, (req, res) => {
+  // console.log(req.body, req.user)
   // set owner of new chatroom to be current user
   req.body.chatroom.owner = req.user.id
 
