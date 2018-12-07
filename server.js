@@ -61,7 +61,7 @@ app.use((req, res, next) => {
 })
 
 app.use((req, res, next) => {
-  console.log(req.body)
+  // console.log(req.body)
   next()
 })
 

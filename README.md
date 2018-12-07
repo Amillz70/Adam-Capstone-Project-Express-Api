@@ -59,6 +59,14 @@ App Screenshot:
 <img src="https://i.imgur.com/ppjP2BH.png">
 </h5>
 
+<h2>Set up on localhost</h2>
+<ol>
+<li>Fork and clone</li>
+<li>Install dependencies with npm install</li>
+<li>run node serve</li>
+</ol>
+
+
 ## [License](LICENSE)
 
 1.  All content is licensed under a CC­BY­NC­SA 4.0 license.
