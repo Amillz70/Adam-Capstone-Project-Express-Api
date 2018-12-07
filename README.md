@@ -3,17 +3,17 @@
 <h1>Chat Up</h1>
 A basic chatroom creating app where a user has access to create a chatroom with a title and a Max number of members.
 
-<h2>Front-End Link:</h2>
+<h2>Front-End Repo:</h2>
 https://github.com/Amillz70/Adam-Capstone-Project-Front-End
 
-<h2>Back-End Link:</h2>
+<h2>Back-End Repo:</h2>
 https://github.com/Amillz70/Adam-Capstone-Project-Express-Api
 
 <h2>Front-End Link</h2>
 https://amillz70.github.io/Adam-Capstone-Project-Front-End/#/
 
 <h2>Back-End Link</h2>
-https://git.heroku.com/tranquil-plains-92630.git
+https://tranquil-plains-92630.herokuapp.com/
 
 <h2>Technology Used</h2>
 
