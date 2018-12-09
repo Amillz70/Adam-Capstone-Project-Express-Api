@@ -31,11 +31,35 @@ const router = express.Router()
 // INDEX
 // GET /chatrooms
 router.get('/chatrooms', requireToken, (req, res) => {
+  // console.log(req)
   Chatroom.find()
     .then(chatrooms => {
+      // const newChatrooms = []
+      const userChatrooms = chatrooms.filter(chatroom => {
+        // console.log(chatroom.owner + "Blurg")
+        // console.log(chatroom.owner)
+        // console.log('whoa')
+        if (chatroom.owner == req.user.id) {
+          // console.log('you are running the successfull double equals')
+          // userChatrooms.push('you pushed something')
+          // console.log(chatroom.owner + "Blah")
+          // userChatrooms.push('you pushed something')
+          return true
+        }
+        // chatrooms.filter(chatroom => req.body.chatroom.owner)
+        // console.log(chatroom.owner + "Blah")
+      })
+
+      // console.log(chatroom.owner + "Olgrr")
+
+      chatrooms.filter(chatroom => req.body.chatroom.owner)
+
+      requireOwnership(req, chatrooms)
+
       // `chatrooms` will be an array of Mongoose documents
       // we want to convert each one to a POJO, so we use `.map` to
       // apply `.toObject` to each one
+
       return chatrooms.map(chatroom => chatroom.toObject())
     })
     // respond with status 200 and JSON of the chatrooms
